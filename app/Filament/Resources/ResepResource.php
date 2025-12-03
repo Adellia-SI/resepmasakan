@@ -10,9 +10,11 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;         // 🔹 IMPORT UNTUK FOTO DI TABLE
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\FileUpload;        // 🔹 IMPORT UNTUK UPLOAD FOTO
 
 class ResepResource extends Resource
 {
@@ -25,14 +27,13 @@ class ResepResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-
             ->columns(2)
             ->schema([
                 TextInput::make('judul')
                     ->required()
                     ->maxLength(200)
                     ->label('Judul Resep')
-                    ->columnSpan(1),
+                    ->columnSpan(2),
 
                 Forms\Components\Group::make()
                     ->schema([
@@ -47,12 +48,21 @@ class ResepResource extends Resource
                             ->required(),
                     ])
                     ->columns(2)
-                    ->columnSpan(1),
+                    ->columnSpan(2),
+
+                //  FIELD UPLOAD FOTO MASAKAN
+                FileUpload::make('foto')
+                    ->label('Foto Masakan')
+                    ->image()
+                    ->directory('resep')   // disimpan di storage/app/public/resep
+                    ->disk('public')
+                    ->imageEditor()
+                    ->nullable()
+                    ->columnSpan(2),
 
                 RichEditor::make('bahan')
                     ->required()
                     ->label('Bahan-bahan')
-
                     ->toolbarButtons([
                         'blockquote',
                         'bold',
@@ -62,7 +72,7 @@ class ResepResource extends Resource
                         'undo',
                         'redo',
                     ])
-                    ->columnSpanFull(),
+                    ->columnSpan(2),
 
                 RichEditor::make('langkah')
                     ->required()
@@ -76,7 +86,7 @@ class ResepResource extends Resource
                         'undo',
                         'redo',
                     ])
-                    ->columnSpanFull(),
+                    ->columnSpan(2),
             ]);
     }
 
@@ -84,6 +94,12 @@ class ResepResource extends Resource
     {
         return $table
             ->columns([
+                // THUMBNAIL FOTO DI TABEL
+                ImageColumn::make('foto')
+                    ->label('Foto')
+                    ->square()
+                    ->size(60),
+
                 TextColumn::make('judul')
                     ->searchable()
                     ->sortable(),
@@ -108,7 +124,7 @@ class ResepResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('kategori')
-                ->relationship('kategori', 'nama_kategori')
+                    ->relationship('kategori', 'nama_kategori'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

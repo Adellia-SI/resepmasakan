@@ -18,6 +18,7 @@ class Resep extends Model
         'langkah',
         'kategori_id',
         'penulis_id',
+        'foto',
     ];
 
     public function kategori(): BelongsTo

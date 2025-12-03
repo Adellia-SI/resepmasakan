@@ -10,10 +10,13 @@ class EditKategoriResep extends EditRecord
 {
     protected static string $resource = KategoriResepResource::class;
 
+    protected static ?string $title = 'Edit Kategori Resep';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->label('Hapus'),
         ];
     }
 }

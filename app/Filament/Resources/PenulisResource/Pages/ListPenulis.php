@@ -10,10 +10,13 @@ class ListPenulis extends ListRecords
 {
     protected static string $resource = PenulisResource::class;
 
+    protected static ?string $title = 'Daftar Penulis Resep';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Tambah Penulis'),
         ];
     }
 }

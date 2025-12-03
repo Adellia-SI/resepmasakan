@@ -10,10 +10,13 @@ class ListKategoriReseps extends ListRecords
 {
     protected static string $resource = KategoriResepResource::class;
 
+    protected static ?string $title = 'Daftar Kategori Resep';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Tambah Kategori'),
         ];
     }
 }
