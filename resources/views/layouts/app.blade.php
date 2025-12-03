@@ -26,18 +26,42 @@
             transition: 0.2s;
         }
 
+        body {
+            background-image: maskotnew.jpg;
+            background-size: contain;
+            background-repeat: repeat;
+            background-position: top left;
+        }
+
+        button, a {
+            transition: 0.25s ease;
+        }
+
+        a.active, a:hover {
+            box-shadow: 0px 0px 12px rgba(255, 105, 180, 0.4);
+            transform: translateY(-2px);
+        }
+
     </style>
 
 </head>
 <body class="bg-pink-50">
     {{-- HEADER / NAMA TOKO --}}
-    <header class="bg-white shadow-sm border-b border-pink-200 mb-6">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-center">
+    <header class="bg-white shadow-sm border-b border-pink-200 mb-6 py-6">
+    <div class="max-w-6xl mx-auto px-4 text-center">
 
-        {{-- JUDUL --}}
-        <h1 class="text-4xl font-extrabold tracking-wide text-pink-600 mb-4">
-            Resep Masakan
-        </h1>
+        {{-- WRAPPER LOGO + TITLE --}}
+        <div class="flex items-center gap-4 mb-3 justify-center w-full">
+            {{-- MASCOT IMAGE --}}
+            <img src="{{ asset('images/maskotnew.jpg') }}"
+                 alt="Chef Girl Mascot"
+                 class="w-20 drop-shadow-lg rounded-full object-cover">
+
+            {{-- TITLE --}}
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-wide text-pink-600">
+                Resep Masakan
+            </h1>
+        </div>
 
         {{-- NAVIGATION BUTTONS --}}
         <div class="flex justify-center gap-3 flex-wrap">
@@ -64,9 +88,15 @@
     </div>
 </header>
 
+
     {{-- KONTEN HALAMAN --}}
     <main class="max-w-6xl mx-auto px-4 pb-10">
         @yield('content')
     </main>
+
+<footer class="text-center py-6 text-pink-600 text-sm opacity-70">
+    ✨ Menu masakan dibuat dengan penuh cinta💕 untuk keluarga tercinta✨
+</footer>
+
 </body>
 </html>
