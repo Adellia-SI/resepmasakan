@@ -3,7 +3,7 @@
 @section('title', 'Penulis: ' . $penulis->nama_penulis)
 
 @section('content')
-    <a href="{{ route('penulis.index') }}" class="text-sm text-blue-600">
+    <a href="{{ route('penulis.index') }}" class="text-sm text-pink-600">
         &larr; Kembali ke daftar penulis
     </a>
 

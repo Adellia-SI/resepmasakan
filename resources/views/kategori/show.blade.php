@@ -3,7 +3,7 @@
 @section('title', 'Kategori: ' . $kategori->nama_kategori)
 
 @section('content')
-    <a href="{{ route('kategori.index') }}" class="text-sm text-blue-600">
+    <a href="{{ route('kategori.index') }}" class="text-sm text-pink-600">
         &larr; Kembali ke semua kategori
     </a>
 
