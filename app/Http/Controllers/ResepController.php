@@ -3,21 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resep;
+use Illuminate\Http\Request;
 
 class ResepController extends Controller
 {
-    // halaman daftar resep
-    public function index()
+    public function index(Request $request)
     {
-        // ambil resep + relasi kategori & penulis
-        $reseps = Resep::with(['kategori', 'penulis'])
-            ->latest()
-            ->paginate(9); // 9 per halaman
+        $search = $request->input('q');
 
-        return view('resep.index', compact('reseps'));
+        $query = Resep::with(['kategori', 'penulis']);
+
+        if (!empty($search)) {
+            $query->where('judul', 'like', '%' . $search . '%');
+        }
+
+        $reseps = $query->latest()->paginate(9)->withQueryString();
+
+        return view('resep.index', [
+            'reseps' => $reseps,
+            'search' => $search,
+        ]);
     }
 
-    // halaman detail 1 resep
+    // DETAIL RESEP
     public function show(Resep $resep)
     {
         $resep->load(['kategori', 'penulis']);
